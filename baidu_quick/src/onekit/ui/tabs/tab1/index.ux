@@ -1,0 +1,15 @@
+
+<import name="page" src="../page"></import>
+<template>
+	<div>
+		<page>
+			<text>tab1</text>
+		</page>
+	</div>
+</template>
+
+
+<script>
+	// 子组件
+	export default {}
+</script>

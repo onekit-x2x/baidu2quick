@@ -1,0 +1,661 @@
+<template>
+  <div>
+    <text></text>
+  </div>
+</template>
+
+<script>
+import swan from '../onekit/swan.js'
+import {getApp} from '../onekit/onekit.js'
+
+export default {
+	data: {
+		filePath: ''
+	},
+  onInit() { 
+		swan.url = this.$page.path;
+/*-----------------RecorderManager----------------------fristTestOk----------*/
+		// const RecorderManager = swan.getRecorderManager();
+		// RecorderManager.onError({
+		//   success(res) {
+		//     console.log("RecorderManager success", res)
+		//   },
+		//   fail(res) {
+		//     console.log("RecorderManager fail", res)
+		//   },
+		//   complete(res) {
+		//     console.log("RecorderManager complete", res)
+		//   }
+		// })
+
+
+/*-----------------bulutooth----------------------fristTestOk----------*/			
+			// swan.onBluetoothAdapterStateChange(function (res) {
+			//   console.log('adapterState changed, now is', res)
+			// })
+	
+	
+
+
+
+/*-----------------MessageFile----------------------fristTestOk----------*/
+			// swan.chooseMessageFile({
+			//   count: 10,
+			//   success(res) {
+			//     console.log("chooseMessageFile success", res)
+			//   },
+			//   fail(res) {
+			//     console.log("chooseMessageFile fail", res)
+			//   },
+			//   complete(res) {
+			//     console.log("chooseMessageFile complete", res)
+			//   }
+			// })
+			
+
+	
+/*-----------------chooseVideo----------------------fristTestOk----------*/
+		// swan.chooseVideo({
+		// 	  success(res) {
+		// 	    console.log("chooseVideo success", res)
+		// 	  },
+		// 	  fail(res) {
+		// 	    console.log("chooseVideo fail", res)
+		// 	  },
+		// 	  complete(res) {
+		// 	    console.log("chooseVideo complete", res)
+		// 	  }
+		// 	})
+		// swan.playVoice()
+
+
+/*-----------------base64ToArrayBuffer----------------------fristTestOk----------*/
+			// const base64 = 'CxYh'
+			// const arrayBuffer = swan.base64ToArrayBuffer(base64)
+			// console.log(arrayBuffer)
+
+
+
+
+
+/*-----------------base64ToArrayBuffer----------------------fristTestOk----------*/
+    // const base64 = 'CxYh'
+	// const arrayBuffer = swan.base64ToArrayBuffer(base64)
+	// console.log(arrayBuffer)
+
+
+/*-----------------navigateTo----------------------fristTestOk----------*/	
+//    swan.navigateTo({
+//  			url:"../test/index",
+// 			success(res) {
+//  				console.log("navigateTo success", res)
+//  			},
+//  			fail(res) {
+//  				console.log("navigateTo fail", res)
+//  			},
+//  			complete(res) {
+//  				console.log("navigateTo fail", res)
+// 			}		
+//  		})
+
+
+
+
+
+
+/*-----------------getLocation----------------------fristTestOk----------*/
+	// swan.getLocation({
+    //         type: 'gcj02', 
+    //         altitude: true,
+    //         success: res => {
+    //             console.log('success', res);
+    //             swan.openLocation({
+    //                 latitude: res.latitude,
+    //                 longitude: res.longitude,
+    //                 success: res => {
+    //                     console.log('openLocation success', res);
+    //                 },
+    //                 fail: err => {
+    //                     console.log('openLocation fail', err);
+    //                 }
+    //             });
+    //         },
+    //         fail: err => {
+    //             swan.showToast({title: '获取失败'});
+    //         }
+    //     });
+
+
+/*-----------------openLocation----------------------fristTestOk----------*/
+		// swan.openLocation({
+		// 	latitude: 30.5407,
+		// 	longitude: 104.0607,
+		// 	success: function () {
+		// 		console.log(`open location success`)
+		// 	},
+		// 	fail: function (data, code) {
+		// 		console.log(`open location fail, code = ${code}`)
+		// 	},
+		// 	complete: function () {
+		// 		console.log(`open location complete`)
+		// 	}
+		// })
+
+/*-----------------chooseLocation---------------fristTestOk----------------*/
+
+//  swan.chooseLocation({
+//             success: res => {
+//                 console.log('chooseLocation success');
+//             },
+//             fail: err => {
+//                 console.log('chooseLocation fail');
+                
+//             }
+//         });
+
+////////////////////////////////网络///////////////////////////////
+
+/*-----------------request----------------------fristTestOk----------*/
+	// swan.request({
+	// 		url: 'https://locally.uieee.com/slides',
+	// 		// url: 'http://192.168.22.150/Text/index.jsp',
+	// 		success(res) {
+	// 			console.log('request success', res)
+
+	// 		},
+	// 		fail(res) {
+	// 			console.log('request fail', res)
+	// 		},
+	// 		complete(res) {
+	// 			console.log('request complete', res)
+	// 		},
+	// 	})
+
+
+/*-----------------chooseImage----------------------fristTestOk----------*/	
+		// swan.chooseImage({
+		// 	success(res) {
+		// 		console.log('chooseImage success', res)
+
+		// 	},
+		// 	fail(res) {
+		// 		console.log('chooseImage fail', res)
+		// 	},
+		// 	complete(res) {
+		// 		console.log('chooseImage complete', res)
+		// 	},
+		// })
+
+ 		
+		
+		swan.chooseImage({
+			success(res) {
+				const tempFilePaths = res.tempFilePaths;
+				console.log(res)
+				swan.uploadFile({
+					url: 'https://www.onekitwx.com/quick/weixin/request/upload',
+					filePath: tempFilePaths,
+					name: 'file1',
+					formData: {
+						'user': 'test'
+					}, 
+					success(res) {
+						const data = res.data
+						//do something
+					}
+				})
+			}
+		})
+
+
+
+/*-----------------connectSocket----------------------fristTestOk----------*/
+	// let ws = swan.connectSocket({
+	// 		 url: 'wss://echo.websocket.org',
+	// 		//url: "ws://192.168.23.234/quick/websocket/websocket1",
+	// 		header: {
+	// 			'content-type': 'application/json'
+	// 		},
+	// 		protocols: ['protocol1']
+	// 	})
+	// 	ws.onMessage((res) => {
+	// 		console.log("onMessage",res);
+	// 	})
+	// 	ws.onError(function(res){
+	// 		console.log("onError",res);
+	// 	})
+	// 	console.log("ws", ws)
+	// 	ws.onOpen((res) => {
+	// 		console.log("onOpen",res);
+	// 		ws.send({
+	// 			data: "aaaa"
+	// 		})
+	// 	})
+
+/*-----------------downloadFile----------------------fristTestOk----------*/
+        // swan.downloadFile({
+        //     url: 'https://smartprogram.baidu.com/docs/img/file-simple.pdf',
+        //     success: res => {
+        //          console.log('downloadFile success',res);
+        //     },
+        //     fail: err => {
+        //          console.log('downloadFile success');
+        //     },
+        //     complete: () => {
+        //          console.log('downloadFile success');
+        //     }
+        // });
+ 
+  
+
+/*-----------------connectSocket----------------------fristTestOk----------*/		
+		// let socketOpen = false
+		// const socketMsgQueue = []
+		 
+		
+		// swan.connectSocket({
+		// 	url: 'wss://echo.websocket.org',
+		// })
+
+
+		// swan.onSocketError(function(res) {
+        //     swan.showModal({
+        //         title: '监听到webSocket连接出错',
+        //         content: JSON.stringify(res)
+        //     });
+        //     console.log('WebSocket连接打开出错', res);
+        // });
+	
+		// swan.onSocketOpen((res) => {
+		// 	console.log('WebSocket连接已打开！', res);
+		// 	swan.sendSocketMessage({
+		// 		data: 'send message',
+		// 		success: function () {
+		// 			console.log(`send success`)
+		// 		},
+		// 		fail: function (data, code) {
+		// 			console.log(`handling fail, code = ${code}`)
+		// 		}
+		// 	})
+		// })
+
+//////////////////////////界面////////////////////////////////
+/*-----------------showToast----------------------fristTestOK----------*/
+
+		// swan.showToast({
+		// 	title: '成功',
+		// 	icon: 'success',
+		// 	duration: 2000
+		// })
+
+/*-----------------showLoading----------------------fristTestOK----------*/
+   	// swan.showLoading({
+	// 		title: '加载中',
+	// 	})
+
+/*-----------------showModal----------------------fristTestOK----------*/
+		// swan.showModal({
+		// 	title: '提示',
+		// 	content: '这是一个模态弹窗',
+		// 	// showCancel:false,
+		// 	success(res) {
+		// 		console.log("res",res);
+		// 		if (res.confirm) {
+		// 			console.log('用户点击确定')
+		// 		} else if (res.cancel) {
+		// 			console.log('用户点击取消')
+		// 		}
+		// 	},
+		// 	fail: function () {
+		// 		console.log(`handling fail`, arguments)
+		// 	},
+		// 	complete: function () {
+		// 		console.log(`handling complete`, arguments)
+		// 	}
+		// })
+
+/*-----------------showActionSheet----------------------fristTestOK----------*/
+		// swan.showActionSheet({
+		// 	itemList: ['1', '2', '3', '4', '5', '6'],
+		// 	success(res) {
+		// 		console.log("success", res)
+		// 	},
+		// 	fail(res) {
+		// 		console.log("fail", res)
+		// 	},
+		// 	complete(res) {
+		// 		console.log("complete", res)
+		// 	}
+		// })
+
+/*-----------------getMenuButtonBoundingClientRect-------------fristTestOK----------*/
+		// let aaa = swan.getMenuButtonBoundingClientRect()
+		// console.log(aaa)
+
+
+
+///////////////////////AI///////////////////////////////////////
+//不支持
+
+
+////////////////////////////////媒体////////////////////////////
+/*---------------previewImage-------fristTestOk----------*/
+//  swan.previewImage({
+//             urls:'https://b.bdstatic.com/miniapp/image/swan-preview-image-2-zip.png',
+//             success: res => {
+//                 console.log('previewImage success');
+//             },
+//             fail: err => {
+//                 console.log('previewImage fail', err);
+// 			},
+// 			complete(res) {
+// 				console.log("complete", res)
+// 			}
+//  })
+
+/*-----------------getImageInfo----------------------fristTestFail----------*/
+		// swan.getImageInfo({
+		// 	// "internal://tmp/d7b0645a-7aec-40a6-ab56-baaf5a04e619/-73cc35b43df894c7.jpg"
+		// 	src: "src/onekit/logo.png",
+		// 	success(res) {
+		// 		console.log("swan.getImageInfo success", res)
+		// 	},
+		// 	fail(res) {
+		// 		console.log("swan.getImageInfo fail", res)
+		// 	},
+		// 	complete(res) {
+		// 		console.log("swan.getImageInfo complete", res)
+		// 	}
+		// })
+
+/*-----------------saveImageToPhotosAlbum----------------------fristTestOK----------*/
+ 		// swan.saveImageToPhotosAlbum({
+		// 	filePath:"internal://tmp/1f72cae2-dbe1-4ee0-9cc5-1b6c3d54ab23/IMG20200414120411.jpg",
+		// 	   success(res) {
+		// 	     console.log("saveImageToPhotosAlbum success", res)
+		// 	   },
+		// 	   fail(res) {
+		// 	     console.log("saveImageToPhotosAlbum fail", res)
+		// 	   },
+		// 	   complete(res) {
+		// 	     console.log("saveImageToPhotosAlbum complete", res)
+		// 	   }
+		// 	 })
+
+/*-----------------chooseImage----------------------fristTestOk----------*/			
+			// swan.chooseImage({
+			//   success(res) {
+			//     console.log("chooseImage success", res)
+			//   },
+			//   fail(res) {
+			//     console.log("chooseImage fail", res)
+			//   },
+			//   complete(res) {
+			//     console.log("chooseImage complete", res)
+			//   }
+			// })
+
+/*---------------compressImage----fristTestOk---------------*/
+ 			// swan.compressImage({
+			// 		src: '/onekit/logo.png',
+            //         success: res => {
+            //             console.log('compressImage success', res);
+            //         },
+            //         fail: err => {
+            //             console.log('compressImage fail', err);
+            //         }
+            //     });
+
+/*-----------------takePhoto----------------------fristTestOK----------*/
+			//  const ARCameraContext = swan.createCameraContext();
+			//  cameraContext = swan.createCameraContext();
+			// // console.log(ARCameraContext.takePhoto);
+			// ARCameraContext.takePhoto({
+			//   success(res) {
+			//     console.log("takePhoto success", res)
+			//   },
+			//   fail(res) {
+			//     console.log("takePhoto fail", res)
+			//   },
+			//   complete(res) {
+			//     console.log("takePhoto complete", res)
+			//   }
+			// })
+
+/*-----------------startRecord----------------------fristTestOk----------*/
+		// const CameraContext = swan.createCameraContext();
+		// console.log(CameraContext.takePhoto);
+		// CameraContext.startRecord({
+		//   success(res) {
+		//     console.log("startRecord success", res)
+		//   },
+		//   fail(res) {
+		//     console.log("startRecord fail", res)
+		//   },
+		//   complete(res) {
+		//     console.log("startRecord complete", res)
+		//   }
+		// })
+
+/*-----------------stopRecord----------------------fristTestOk----------*/
+		// swan.stopRecord({
+		// 			success(res) {
+		// 				console.log("stopRecord success", res)
+		// 			},
+		// 			fail(res) {
+		// 				console.log("stopRecord fail", res)
+		// 			},
+		// 			complete(res) {
+		// 				console.log("stopRecord complete", res)
+		// 			}
+		// 		})
+
+
+/*-----------------backgroundAudioManager----------------------fristTestOk----------*/
+	//   const backgroundAudioManager = swan.getBackgroundAudioManager()
+	// 	console.log(backgroundAudioManager);
+	// 	backgroundAudioManager.title = '此时此刻'
+	// 	backgroundAudioManager.src = 'http://m10.music.126.net/20200609105650/55d6fcd3ef2ac8518f85d0a40819ea7f/ymusic/33d7/32cb/8085/f9fc6e00ed72b9f44b35ee9be94f7970.mp3'
+	// 	backgroundAudioManager.play();
+	// 	setInterval(()=>{console.log(backgroundAudioManager.title);},1000)
+
+
+///////////////////////////媒体over/////////////////////////////////
+
+
+
+
+//////////////////////////////设备/////////////////////////////////
+		
+/*--------------------getSystemInfo----------------------fristTestOk-------*/
+    //   swan.getSystemInfo({
+    //     success:console.log
+    //   })		
+
+
+/*--------------------Network----------------------fristTestOk----------*/
+    //   swan.getNetworkType({
+	// 			success(res) {
+	// 				console.log("getNetworkType success", res)
+	// 			},
+	// 			fail(res) {
+	// 				console.log("getNetworkType fail", res)
+	// 			},
+	// 			complete(res) {
+	// 				console.log("getNetworkType complete", res)
+	// 			}
+	// 		})		 
+	
+
+	// 		swan.onNetworkStatusChange(function(res) {
+	// 			console.log("onNetworkStatusChange", res)
+	// 		})
+
+	// 		swan.offNetworkStatusChange(function(res) {
+	// 			console.log("onNetworkStatusChange", res)
+	// 		})
+
+
+/*-----------------set and get ScreenBrightness----------------------fristTestOk----------*/
+      // swan.setScreenBrightness({
+			// 	value: 1,
+			// 	success(res) {
+			// 		console.log("setScreenBrightness success", res)
+			// 	},
+			// 	fail(res) {
+			// 		console.log("setScreenBrightness fail", res)
+			// 	},
+			// 	complete(res) {
+			// 		console.log("setScreenBrightness complete", res)
+			// 	}
+			// })
+
+			// swan.getScreenBrightness({
+			// 	success(res) {
+			// 		console.log("getScreenBrightness success", res)
+			// 	},
+			// 	fail(res) {
+			// 		console.log("getScreenBrightness fail", res)
+			// 	},
+			// 	complete(res) {
+			// 		console.log("getScreenBrightness complete", res)
+			// 	}
+      // })
+      
+/*--------------------kepScreenBrightOn----------------------fristTestOK---------*/
+			// swan.setKeepScreenOn({
+			// 	keepScreenOn: false,
+			// 	success(res) {
+			// 		console.log("setKeepScreenOn success", res)
+			// 	},
+			// 	fail(res) {
+			// 		console.log("setKeepScreenOn fail", res)
+			// 	},
+			// 	complete(res) {
+			// 		console.log("setKeepScreenOn complete", res)
+			// 	}
+			// })
+		
+
+/*--------------------vibrateLong----------------------fristTestOK---------*/			
+ 			// swan.vibrateLong({
+			// 	success(res) {
+			// 		console.log("vibrateLong success", res);
+			// 	},
+			// 	fail(res) {
+			// 		console.log("vibrateLong fail", res)
+			// 	},
+			// 	complete(res) {
+			// 		console.log("vibrateLong complete", res)
+			// 	}
+			// })
+
+/*--------------------vibrate----------------------fristTestOk-------*/
+      // swan.vibrateShort({
+			// 	success(res) {
+			// 		console.log("vibrateShort success", res);
+			// 	},
+			// 	fail(res) {
+			// 		console.log("vibrateShort fail", res)
+			// 	},
+			// 	complete(res) {
+			// 		console.log("vibrateShort complete", res)
+			// 	}
+	  // })
+	  
+
+/*--------------------ClipboardData----------------------fristTestOk----------*/
+      // swan.setClipboardData({
+			// 	data: 'data1',
+			// 	success(res) {
+			// 		console.log("setClipboardData success",res);
+			// 	},
+			// 	fail(res) {
+			// 		console.log("setClipboardData fail", res)
+			// 	},
+			// 	complete(res) {
+			// 		console.log("setClipboardData complete", res)
+			// 	}
+			// })
+
+			// swan.getClipboardData({
+			// 	success(res) {
+			// 		console.log("getClipboardData success", res)
+			// 	},
+			// 	fail(res) {
+			// 		console.log("getClipboardData fail", res)
+			// 	},
+			// 	complete(res) {
+			// 		console.log("getClipboardData complete", res)
+			// 	}
+			// })
+/*--------------------scanCode----------------------fristTestOk----------*/
+      // swan.scanCode({
+			// 	success(res) {
+			// 		console.log("scanCode success", res);
+			// 	},
+			// 	fail(res) {
+			// 		console.log("scanCode fail", res)
+			// 	},
+			// 	complete(res) {
+			// 		console.log("scanCode complete", res)
+			// 	}
+			// })
+
+
+// swan.onAccelerometerChange((res) => {
+// 			console.log(res);
+// 		})
+/*-----------------startAccelerometer----------------------fristTestOK----------*/
+		// swan.startAccelerometer({
+		// 	success(res) {
+		// 		console.log("success", res)
+		// 	},
+		// 	fail(res) {
+		// 		console.log("fail", res)
+		// 	},
+		// 	complete(res) {
+		// 		console.log("complete", res)
+		// 	}
+		// })
+
+	// swan.onCompassChange((res) => {
+		// 	console.log(res);
+		// })
+
+     /*-----------------startCompass----------------------fristTestOK----------*/
+		// swan.startCompass({
+		// 	success(res) {
+		// 		console.log("success", res)
+		// 	},
+		// 	fail(res) {
+		// 		console.log("fail", res)
+		// 	},
+		// 	complete(res) {
+		// 		console.log("complete", res)
+		// 	}
+		// })
+ /*-----------------Battery----------------------fristTestOk----------*/
+      // swan.getBatteryInfo({
+			//   success(res) {
+			//     console.log("getBatteryInfo success",res)
+			//   },
+			//   fail(res) {
+			//     console.log("getBatteryInfo fail", res)
+			//   },
+			//   complete(res) {
+			//     console.log("getBatteryInfo complete", res)
+			//   }
+      // })
+	  
+ /*-----------------onUserCaptureScreen----------------------fristTestOk----------*/	
+// swan.onUserCaptureScreen(function(res) {
+// 				console.log('用户截屏')
+// 			 });
+
+
+		
+
+  }
+}
+</script>
